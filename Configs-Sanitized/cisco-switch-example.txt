@@ -1,0 +1,54 @@
+
+! Enterprise Home Network Lab
+! Cisco Catalyst 2960-X
+! Sanitised configuration example
+! Illustrative commands, not a complete running-config
+
+! VLAN Configuration
+vlan 10
+ name ADMIN
+vlan 20
+ name STAFF
+vlan 30
+ name GUEST
+vlan 99
+ name MANAGEMENT
+
+! Trunk to MikroTik hEX
+interface GigabitEthernet5/0/1
+ description TRUNK_TO_MIKROTIK
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,99
+
+! Administration VLAN
+interface GigabitEthernet5/0/2
+ description ADMIN_ACCESS
+ switchport mode access
+ switchport access vlan 10
+
+! Staff VLAN
+interface GigabitEthernet5/0/3
+ description STAFF_ACCESS
+ switchport mode access
+ switchport access vlan 20
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+
+! Guest VLAN
+interface GigabitEthernet5/0/4
+ description GUEST_ACCESS
+ switchport mode access
+ switchport access vlan 30
+
+! Switch Management SVI
+interface Vlan99
+ ip address 10.10.99.2 255.255.255.0
+
+! Default Gateway
+ip default-gateway 10.10.99.1
+
+! Unused ports are administratively disabled.
+! SSH management uses an access restriction.
+! Passwords, keys and device-specific identifiers omitted.

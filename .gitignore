@@ -1,0 +1,24 @@
+
+# Private router and switch backups
+Backup/
+**/Backup/
+*.backup
+
+# Raw configuration exports
+*Final-Config.rsc
+*Config-Export.rsc
+*.cfg
+
+# Credentials and secrets
+.env
+.env.*
+*.key
+*.pem
+id_rsa
+id_ed25519
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
